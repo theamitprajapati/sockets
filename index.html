@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Lock</title>
+  </head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<style>
+    .dyn-height {
+    width:100px;
+    max-height:300px;
+    overflow-y:scroll;
+}
+    </style>
+<body>
+
+
+<div class="container">
+ <div class="row mt-5">
+  <div class="col-6">
+  <select class="form-control" id="channel">
+    <option value="">Channel</option>
+    <option value="a">A</option>
+    <option value="b">B</option>
+    <option vlaue="c">C</option>
+  </select>
+   <textarea class="form-control" id="man" rows="3"></textarea>
+   <button type="button" class="btn btn-primary mt-2" onclick="submit()">Ping</button>
+ 
+</div>
+  <div class="col-6 dyn-height" style="background:#000"><ul class="list-unstyled">
+  <li class="media">   
+    <div class="media-body" id="google">
+      <code style="color:#4dc34d;">Hello !</code><br>
+    </div>
+  </li>
+ 
+</ul></div>
+</div>
+</div>
+
+
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/jq.js"></script>
+<script>
+  var socket = io();
+  var username = (Math.random()+1).toString(36).slice(2, 18);
+  var channel = $('#channel').val();
+  function submit(){
+    console.log($('#channel').val())
+    socket.emit('xman', {q:$('#man').val(),username:username,channel:channel});
+    $('#man').val('');
+    return false;
+  }
+  socket.on('response', function(data){
+  console.log(data)
+  $('#google').prepend(`<code style="color:#4dc34d;">@${data.user} : ${data.message} !</code><br>`);
+  });
+</script>
+  </body>
+</html>
