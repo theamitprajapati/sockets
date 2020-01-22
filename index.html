@@ -57,7 +57,7 @@
   }
   socket.on('response', function(data){
   console.log(data)
-  $('#google').prepend(`<code style="color:#4dc34d;">@${data.user} : ${data.message} !</code><br>`);
+  $('#google').prepend(`<code style="color:#4dc34d;">user@${data.user} : ${data.message} !</code><br>`);
   });
 </script>
   </body>

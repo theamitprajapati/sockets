@@ -16,7 +16,7 @@ io.on('connection', function(socket){
  
   socket.on('xman', function(data){
    console.log('username:',socket.id)
-   io.emit('response',{message:data.q,user:(os.username)});
+   io.emit('response',{message:data.q,user:(data.username)});
   });
   
   
