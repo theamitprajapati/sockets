@@ -6,7 +6,7 @@
   "dependencies": {
     "bayes": "^0.0.4",
     "express": "^4.13.4",
-    "socket.io": "^1.4.5",
+    "socket.io": "^2.4.0",
     "ws": "^7.2.1"
   },
   "devDependencies": {},
